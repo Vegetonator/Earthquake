@@ -1,0 +1,295 @@
+@layer base;
+
+:root {
+  color-scheme: light dark;
+  --radius: 1rem;
+  --vp-gutter: 1rem;
+
+  --bg: hsl(0 0% 100%);
+  --surface: hsl(0 0% 92%);
+  --text: hsl(0 0% 0%);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: hsl(0 0% 12%);
+    --surface: hsl(0 0% 18%);
+    --text: hsl(0 0% 90%);
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg: hsl(0 0% 100%);
+    --surface: hsl(0 0% 92%);
+    --text: hsl(0 0% 0%);
+  }
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    background-color: var(--bg);
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: var(--vp-gutter) calc(2 * var(--vp-gutter));
+    font-family: system-ui;
+  }
+}
+
+h1,
+h3,
+cite {
+  margin: 0;
+  font-weight: normal;
+  font-variant-caps: small-caps;
+  padding-block: 0.5rem 0.7rem;
+  padding: var(--vp-gutter) 1.5rem;
+  color: var(--text);
+}
+
+h1 {
+  font-size: 1.44rem;
+}
+
+h2 {
+  font-size: 1.2rem;
+  margin: 0;
+  font-weight: normal;
+  font-variant-caps: small-caps;
+  padding-block: 0.5rem 0.7rem;
+  padding: var(--vp-gutter) calc(var(--vp-gutter) * 2);
+  color: var(--text);
+}
+
+h3 {
+  font-size: 1rem;
+}
+
+p {
+  font-size: 0.873rem;
+  margin: 0;
+  font-weight: normal;
+  padding-block: 0.5rem 0.7rem;
+  padding: 0.5rem 1.5rem;
+  color: var(--text);
+  line-height: 1.25rem;
+  letter-spacing: 0.05rem;
+}
+
+cite {
+  font-size: 0.694rem;
+}
+
+main {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--vp-gutter);
+  justify-content: center;
+}
+
+.legend {
+  flex-basis: 100%;
+  aspect-ratio: 9;
+}
+
+.viewDiv,
+.details {
+  flex-basis: calc((100% - var(--vp-gutter)) / 2);
+  aspect-ratio: 1;
+}
+
+.types {
+  flex-basis: calc((100% - (2 * var(--vp-gutter))) / 3);
+  aspect-ratio: 1.8;
+}
+
+@media (max-width: 900px) {
+  main,
+  #legend,
+  .esri-legend__layer-body {
+    flex-direction: column;
+  }
+}
+
+article {
+  border-radius: var(--radius);
+  background-color: var(--surface);
+}
+
+section {
+  padding: 0 0.5rem var(--vp-gutter);
+}
+
+/* Footer */
+footer {
+  display: block;
+  text-align: center;
+  margin: calc(4 * var(--vp-gutter)) auto auto;
+  padding-top: 1rem;
+  border-top: 0.25px solid var(--text);
+}
+/* Footer */
+
+/* Header */
+header {
+  display: block;
+  text-align: center;
+}
+/* Header */
+
+.svg {
+  height: 90%;
+  width: 90%;
+  margin-top: var(--vp-gutter);
+  pointer-events: all;
+  overflow: visible;
+}
+
+.ring {
+  height: 50%;
+  width: 50%;
+  display: block;
+  margin: var(--vp-gutter) auto 0;
+  object-fit: cover;
+  overflow: hidden;
+}
+
+.map {
+  color: var(--text);
+  fill: var(--text);
+}
+
+/* fault animation */
+@keyframes normalfault {
+  100% {
+    transform: translate(2.5px, 5px);
+  }
+}
+
+.normal:hover .rightnormal {
+  animation: normalfault 2.2s cubic-bezier(0.23, 0.46, 0.45, 0.94) normal
+    infinite;
+}
+
+@keyframes reversefault {
+  100% {
+    transform: translate(-2.5px, -5px);
+  }
+}
+
+.reverse:hover .rightreverse {
+  animation: reversefault 2.2s cubic-bezier(0.23, 0.46, 0.45, 0.94) normal
+    infinite;
+}
+
+@keyframes strikeright {
+  100% {
+    transform: translate(1.5px, -1.5px);
+  }
+}
+
+@keyframes strikeleft {
+  100% {
+    transform: translate(-1.5px, 1.5px);
+  }
+}
+
+.strike:hover .rightstrike {
+  animation: strikeright 2.2s cubic-bezier(0.23, 0.46, 0.45, 0.94) normal
+    infinite;
+}
+
+.strike:hover .leftstrike {
+  animation: strikeleft 2.2s cubic-bezier(0.23, 0.46, 0.45, 0.94) normal
+    infinite;
+}
+
+/* fault animation */
+
+/* sticky H2 */
+
+main::before {
+  content: "";
+  display: block;
+  height: var(--vp-gutter);
+  position: sticky;
+  margin-bottom: -1rem;
+  top: 0;
+  width: 100%;
+  background-color: var(--bg);
+  padding: 0 0 var(--vp-gutter);
+
+  z-index: 1;
+}
+
+article > h2 {
+  position: sticky;
+  top: var(--vp-gutter);
+  background-color: inherit;
+  border-radius: inherit;
+  z-index: 1;
+}
+/* Sticky H2 */
+
+#viewDiv {
+  height: calc(var(--vp-gutter) * 40);
+  padding-top: var(--vp-gutter);
+}
+
+#histogram, /* histogram bg color and padding */
+.esri-legend,
+.esri-histogram-range-slider .esri-histogram,
+.esri-histogram__content,
+.esri-slider__min,
+.esri-slider__max,
+.esri-slider__label {
+  color: var(--text);
+  background-color: transparent;
+  padding: 0 var(--vp-gutter);
+}
+
+#histogram,
+div.esri-slider__max--interactive:hover,
+div.esri-slider__min--interactive:hover {
+  background-color: transparent;
+}
+
+#legend, /* legend bg color */
+.esri-legend,
+.esri-widget,
+.esri-widget--panel {
+  background-color: var(--surface);
+  width: 100%;
+}
+
+#legend, /* legend font color */
+.esri-legend__layer-cell,
+.esri-legend__layer-cell,
+.--info,
+h3.esri-widget__heading,
+.esri-legend__service-label {
+  color: var(--text);
+  padding: 0;
+}
+
+#legend, /* attribution color*/
+div.esri-attribution {
+  background-color: var(--surface);
+  padding-top: var(--vp-gutter);
+  color: var(--text);
+  font-variant-caps: small-caps;
+}
+
+#legend, /* legend innerbox formatting */
+.esri-legend__layer-body {
+  display: flex;
+  gap: calc(2 * var(--vp-gutter));
+  text-align: justify;
+}
